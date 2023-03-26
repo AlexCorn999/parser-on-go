@@ -3,8 +3,8 @@ package main
 import "parser/actions"
 
 func main() {
+	// мониторинг необходимых тэгов
 	habrTags := []string{"go", "docker", "kubernetes"}
-	actions.Gophers()
 
 	for _, i := range habrTags {
 		actions.HabrGo(i)

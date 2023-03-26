@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"parser/db"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -21,6 +22,7 @@ func HabrGo(tag string) {
 		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
 	}
 
+	// парсинг html
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {
 		log.Fatal(err)
@@ -30,6 +32,8 @@ func HabrGo(tag string) {
 	link, _ := linkAll.Find("a").Attr("href")
 	linkText, _ := linkAll.Find("a").Html()
 	fmt.Println(linkText, link)
+
+	//md5 хэш
 	linkMD5Sum := md5.Sum([]byte(link))
 
 	text := fmt.Sprintf(`<b>Habr - %s</b>: <a href\=\"%s\">%s</a>`, tag, link, linkText)
