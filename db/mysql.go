@@ -11,7 +11,7 @@ import (
 )
 
 func mysqlConn(dbName string) *sql.DB {
-	db, err := sql.Open("mysql", fmt.Sprintf("root:Passwd@unix(/var/run/mysql.sock)/%s", dbName))
+	db, err := sql.Open("mysql", fmt.Sprintf("root:8912qweR@tcp(localhost:3306)/%s", dbName))
 	if err != nil {
 		panic(err.Error())
 	}
@@ -39,7 +39,7 @@ func insertHash(db *sql.DB, url, page, text, hash string, times int64) {
 }
 
 func CheckSiteNewBot(url, page, text, hash string) {
-	dataBase := mysqlConn("news-bot")
+	dataBase := mysqlConn("newsBot")
 	checkLink := selectHash(dataBase, hash)
 	times := time.Now().Unix()
 	if checkLink == false {
